@@ -20,8 +20,8 @@ public class Main {
 							tempPlace = place; //Save the place
 							System.out.print("Choice: "); //Make your choice
 							choice = keyboard.next().toLowerCase(); //Save your choice
-							if (choice.equals("kitchen") || //If your choice is the next place, then make "place" equal to it
-									choice.equals("upstairs")) {
+							if (choice.equals("kitchen") || //If your choice is the next place,
+									choice.equals("upstairs")) { //then make "place" equal to it
 								place = choice;
 							} else {
 								place = "default"; //If the place is wrong, go to default
