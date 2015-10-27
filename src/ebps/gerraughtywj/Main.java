@@ -31,7 +31,7 @@ public class Main {
 							tempPlace = place;
 							System.out.print("Choice: ");
 							choice = keyboard.next().toLowerCase();
-							if (choice.equals("refridgerator") || 
+							if (choice.equals("refrigerator") || 
 									choice.equals("cabinet")) {
 								place = choice;
 							} else {
