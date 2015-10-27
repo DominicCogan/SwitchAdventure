@@ -49,7 +49,7 @@ public class Main {
 								 place = "default";
 							 }
 							 break;
-			case "refridgerator": System.out.println(Prompts.fridgePrompt);
+			case "refrigerator": System.out.println(Prompts.fridgePrompt);
 								  tempPlace = place;
 			 				 	  System.out.print("Choice: ");
 			 				 	  choice = keyboard.next().toLowerCase();
