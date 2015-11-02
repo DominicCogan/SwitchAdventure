@@ -13,7 +13,7 @@ public class Prompts {
 	public static final String fridgeNo = "You slowly starve to death from lack of food as the shadow monsters laugh at your stupidity.";
 	public static final String cabinetYes = "You reach your hand in as a brown laBeouf spider bites you. You die within minutes and become dinner for the next month. Idiot.";
 	public static final String cabinetNo = "As you hesitate and shut the cabinet, a crazed chainsaw murder jumps out from behind you and scares you to death. He then walks away sullen since he was denied his prey.";
-	public static final String bedroomYes = "Inside the closet you notice a displaced panel leading to a panic room. You cower in fear until the police arrive and arrest you for trespassing.";
+	public static final String bedroomYes = "Inside the closet you notice a displaced panel leading to a panic room. You cower in fear until the police arrive and arrest you for trespassing. The police forget about you and you rot to death in an abandoned cell.";
 	public static final String bedroomNo = "A large animatronic fox jumps out and eats your brains as a game dev laughs maniacally.";
 	public static final String bathroomYes = "The faucet handle breaks as you turn it, causing water to rush out of the pipes. The door shuts behind you and you drown slowly.";
 	public static final String bathroomNo = "You slip on the tile and die of head trauma. How did you manage that? You'd have to be Dominic to be that stupid.";
