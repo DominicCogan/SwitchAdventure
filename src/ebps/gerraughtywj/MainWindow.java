@@ -60,31 +60,128 @@ public class MainWindow extends JFrame {
 				}
 				break;
 			case "kitchen":
-				textField.setText("temporary response. Working!");
-				btnYes.setText("Yes");
-				btnNo.setText("No");
 				semaphore.drainPermits();
+				textField.setText(Prompts.kitchenPrompt);
+				tempPlace = place;
+				btnYes.setText("Fridge");
+				btnNo.setText("Cabinet");
 				semaphore.acquire();
-				isRunning = false;
+				choice = btnUsed;
+				if (choice.equals("yes") || choice.equals("no")) {
+					if (choice.equals("yes")) {
+						place = "fridge";
+					} else {
+						place = "upstairs";
+					}
+				} else {
+					place = "default";
+				}
 				break;
 			case "upstairs":
-				textField.setText("temporary respons. Working!");
+				semaphore.drainPermits();
+				textField.setText(Prompts.upstairsPrompt);
+				tempPlace = place;
+				btnYes.setText("bedroom");
+				btnNo.setText("bathroom");
+				semaphore.acquire();
+				choice = btnUsed;
+				if (choice.equals("yes") || choice.equals("no")) {
+					if (choice.equals("yes")) {
+						place = "bedroom";
+					} else {
+						place = "bathroom";
+					}
+				} else {
+					place = "default";
+				}
+				break;
+			case "fridge":
+				semaphore.drainPermits();
+				textField.setText(Prompts.fridgePrompt);
 				btnYes.setText("Yes");
 				btnNo.setText("No");
-				semaphore.drainPermits();
 				semaphore.acquire();
-				isRunning = false;
+				choice = btnUsed;
+				if (choice.equals("yes") || choice.equals("no")) {
+					if (choice.equals("yes")) {
+						textField.setText(Prompts.fridgeYes);
+						place = "done";
+					} else {
+						textField.setText(Prompts.fridgeNo);
+						place = "done";
+					}
+				}
 				break;
-
+			case "cabinet":
+				semaphore.drainPermits();
+				textField.setText(Prompts.cabinetPrompt);
+				btnYes.setText("Yes");
+				btnNo.setText("No");
+				semaphore.acquire();
+				choice = btnUsed;
+				if (choice.equals("yes") || choice.equals("no")) {
+					if (choice.equals("yes")) {
+						textField.setText(Prompts.cabinetYes);
+						place = "done";
+					} else {
+						textField.setText(Prompts.cabinetNo);
+						place = "done";
+					}
+				}
+				break;
+			case "bedroom":
+				semaphore.drainPermits();
+				textField.setText(Prompts.bedroomPrompt);
+				btnYes.setText("Yes");
+				btnNo.setText("No");
+				semaphore.acquire();
+				choice = btnUsed;
+				if (choice.equals("yes") || choice.equals("no")) {
+					if (choice.equals("yes")) {
+						textField.setText(Prompts.bedroomYes);
+						place = "done";
+					} else {
+						textField.setText(Prompts.bedroomNo);
+						place = "done";
+					}
+				}
+				break;
+			case "bathroom":
+				semaphore.drainPermits();
+				textField.setText(Prompts.bathroomPrompt);
+				btnYes.setText("Yes");
+				btnNo.setText("No");
+				semaphore.acquire();
+				choice = btnUsed;
+				if (choice.equals("yes") || choice.equals("no")) {
+					if (choice.equals("yes")) {
+						textField.setText(Prompts.bathroomYes);
+						place = "done";
+					} else {
+						textField.setText(Prompts.bathroomNo);
+						place = "done";
+					}
+				}
+				break;
+			case "done":
+				semaphore.drainPermits();
+				btnYes.setText("Play Again");
+				btnNo.setText("Finish");
+				semaphore.acquire();
+				choice = btnUsed;
+				if (choice.equals("yes") || choice.equals("no")) {
+					if (choice.equals("yes")) {
+						place = "doorway";
+					} else {
+						System.exit(0);
+					}
+				}
 			default:
-				textField.setText("Not a valid answer!"); // Print when answer
-															// isn't valid
-				place = tempPlace; // Go back to previous place
-				break; // Go back to loop
-
+				textField.setText("Not a valid answer!");
+				place = tempPlace;
+				break;
 			}
-
-		} while (isRunning); // Loop until done
+		} while (isRunning);
 		textField.setText("All done!");
 	}
 
