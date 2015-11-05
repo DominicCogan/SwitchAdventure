@@ -44,7 +44,6 @@ public class MainWindow extends JFrame {
 			case "doorway":
 				semaphore.drainPermits();
 				textField.setText(Prompts.doorwayPrompt);
-				tempPlace = place;
 				btnYes.setText("Kitchen");
 				btnNo.setText("Upstairs");
 				semaphore.acquire();
@@ -62,7 +61,6 @@ public class MainWindow extends JFrame {
 			case "kitchen":
 				semaphore.drainPermits();
 				textField.setText(Prompts.kitchenPrompt);
-				tempPlace = place;
 				btnYes.setText("Fridge");
 				btnNo.setText("Cabinet");
 				semaphore.acquire();
@@ -71,7 +69,7 @@ public class MainWindow extends JFrame {
 					if (choice.equals("yes")) {
 						place = "fridge";
 					} else {
-						place = "upstairs";
+						place = "cabinet";
 					}
 				} else {
 					place = "default";
@@ -80,7 +78,6 @@ public class MainWindow extends JFrame {
 			case "upstairs":
 				semaphore.drainPermits();
 				textField.setText(Prompts.upstairsPrompt);
-				tempPlace = place;
 				btnYes.setText("bedroom");
 				btnNo.setText("bathroom");
 				semaphore.acquire();
@@ -165,7 +162,7 @@ public class MainWindow extends JFrame {
 				break;
 			case "done":
 				semaphore.drainPermits();
-				btnYes.setText("Play Again");
+				btnYes.setText("Again");
 				btnNo.setText("Finish");
 				semaphore.acquire();
 				choice = btnUsed;
@@ -173,7 +170,7 @@ public class MainWindow extends JFrame {
 					if (choice.equals("yes")) {
 						place = "doorway";
 					} else {
-						System.exit(0);
+						isRunning = false;
 					}
 				}
 			default:
@@ -182,7 +179,7 @@ public class MainWindow extends JFrame {
 				break;
 			}
 		} while (isRunning);
-		textField.setText("All done!");
+		System.exit(0);
 	}
 
 	public static void main(String[] args) throws InterruptedException {
