@@ -1,7 +1,15 @@
 package ebps.gerraughtywj;
 
 public class Prompts {
-	
+	public static final String doorway = "Doorway";
+	public static final String kitchen = "Kitchen";
+	public static final String upstairs = "Upstairs";
+	public static final String fridge = "Fridge";
+	public static final String cabinet = "Cabinet";
+	public static final String bedroom = "Bedroom";
+	public static final String bathroom = "Bathroom";
+	public static final String yes = "Yes";
+	public static final String no = "No";
 	public static final String doorwayPrompt = "You are in a creepy house! Would you like to go upstairs or into the kitchen?";
 	public static final String kitchenPrompt = "There is a long countertop with dirty dishes everywhere. Off to one side there is, as you'd expect, a refrigerator. You may open the refridgerator or look in a cabinet";
 	public static final String upstairsPrompt = "Upstairs you see a hallway. At the end of the hallway is the master bedroom. There is also a bathroom off the hallway. Where would you like to go?";
