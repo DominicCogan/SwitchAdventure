@@ -193,7 +193,6 @@ public class MainWindow extends JFrame {
 				}
 			}
 		});
-		textField.setText("Yes or no?");
 		Switch();
 	}
 
