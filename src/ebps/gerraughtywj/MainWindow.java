@@ -6,8 +6,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.concurrent.Semaphore;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
@@ -25,14 +33,34 @@ public class MainWindow extends JFrame {
 	private static Semaphore semaphore = new Semaphore(0);
 	public static String btnUsed = "";
 	private final static JTextArea textField = new JTextArea();
+	public static Clip clip;
 
 	/**
 	 * Launch the application.
 	 * 
 	 * @throws InterruptedException
+	 * @throws LineUnavailableException 
+	 * @throws IOException 
+	 * @throws UnsupportedAudioFileException 
 	 */
 
-	public static void Switch() throws InterruptedException {
+	public static void scare() throws InterruptedException, LineUnavailableException, UnsupportedAudioFileException, IOException {
+		InputStream src = MainWindow.class.getResourceAsStream("scare.wav");
+		InputStream in = new BufferedInputStream(src);
+		AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(in);
+		clip = AudioSystem.getClip();
+		try {
+			clip.open(audioInputStream);
+			clip.start();
+			Thread.sleep(1900);
+			clip.close();
+		} catch (LineUnavailableException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	public static void Switch() throws InterruptedException, LineUnavailableException, UnsupportedAudioFileException, IOException {
 		boolean isRunning = true;
 		String place = Prompts.doorway;
 		String tempPlace = place;
@@ -164,6 +192,7 @@ public class MainWindow extends JFrame {
 				semaphore.drainPermits();
 				btnYes.setText("Again");
 				btnNo.setText("Finish");
+				scare();
 				semaphore.acquire();
 				choice = btnUsed;
 				if (choice.equals(Prompts.yes) || choice.equals(Prompts.no)) {
@@ -182,7 +211,7 @@ public class MainWindow extends JFrame {
 		System.exit(0);
 	}
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException, LineUnavailableException, UnsupportedAudioFileException, IOException {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
