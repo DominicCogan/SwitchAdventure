@@ -69,6 +69,7 @@ public class MainWindow extends JFrame {
 		String tempPlace = place;
 		String choice = "";
 		textField.setLineWrap(true);
+		textField.setWrapStyleWord(true);
 		// Begin the loop
 		do {
 			switch (place) {
