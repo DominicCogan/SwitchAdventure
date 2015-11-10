@@ -39,12 +39,13 @@ public class MainWindow extends JFrame {
 	 * Launch the application.
 	 * 
 	 * @throws InterruptedException
-	 * @throws LineUnavailableException 
-	 * @throws IOException 
-	 * @throws UnsupportedAudioFileException 
+	 * @throws LineUnavailableException
+	 * @throws IOException
+	 * @throws UnsupportedAudioFileException
 	 */
 
-	public static void scare() throws InterruptedException, LineUnavailableException, UnsupportedAudioFileException, IOException {
+	public static void scare()
+			throws InterruptedException, LineUnavailableException, UnsupportedAudioFileException, IOException {
 		InputStream src = MainWindow.class.getResourceAsStream("scare.wav");
 		InputStream in = new BufferedInputStream(src);
 		AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(in);
@@ -60,7 +61,9 @@ public class MainWindow extends JFrame {
 		}
 
 	}
-	public static void Switch() throws InterruptedException, LineUnavailableException, UnsupportedAudioFileException, IOException {
+
+	public static void Switch()
+			throws InterruptedException, LineUnavailableException, UnsupportedAudioFileException, IOException {
 		boolean isRunning = true;
 		String place = Prompts.doorway;
 		String tempPlace = place;
@@ -211,7 +214,8 @@ public class MainWindow extends JFrame {
 		System.exit(0);
 	}
 
-	public static void main(String[] args) throws InterruptedException, LineUnavailableException, UnsupportedAudioFileException, IOException {
+	public static void main(String[] args)
+			throws InterruptedException, LineUnavailableException, UnsupportedAudioFileException, IOException {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -257,7 +261,7 @@ public class MainWindow extends JFrame {
 				semaphore.release();
 			}
 		});
-		btnNo.setBounds(256, 167, 89, 23);
+		btnNo.setBounds(249, 167, 96, 23);
 
 		panel.add(btnNo);
 		textField.setBounds(77, 48, 270, 80);
