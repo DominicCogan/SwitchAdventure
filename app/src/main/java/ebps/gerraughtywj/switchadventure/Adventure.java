@@ -14,10 +14,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Adventure extends Activity {
 
     public static Button btnYes, btnNo;
-    public static TextView textField;
+    public static TextView textField, splashText;
     public static String place;
     public static MediaPlayer mediaPlayer;
     public static SharedPreferences preferences;
@@ -95,7 +102,22 @@ public class Adventure extends Activity {
         btnYes = (Button) findViewById(R.id.buttonYes);
         btnNo = (Button) findViewById(R.id.buttonNo);
         textField = (TextView) findViewById(R.id.textFieldText);
+        splashText = (TextView) findViewById(R.id.textView3);
         place = Prompts.doorway;
+        ArrayList splash = new <String>ArrayList();
+        Random RNG = new Random();
+        InputStream is = this.getResources().openRawResource(R.raw.splash);
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String line = br.readLine();
+            while (line != null) {
+                splash.add(line);
+                line = br.readLine();
+            }
+        } catch (IOException e) {
+            Log.w("Switch Adventure", "Error reading splashes!");
+        }
+        splashText.setText(splash.get(RNG.nextInt(splash.size())).toString());
         Switch();
     }
 
