@@ -43,7 +43,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/buttonYes"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="90dp"
         android:text="@string/credit1"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
