@@ -1,23 +1,22 @@
 package ebps.gerraughtywj.switchadventure;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.os.Environment;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -27,10 +26,8 @@ public class Adventure extends Activity {
     public static TextView textField, splashText;
     public static String place;
     public static MediaPlayer mediaPlayer;
-    public static SharedPreferences preferences;
-    public static SharedPreferences.OnSharedPreferenceChangeListener prefListener;
     public static int musicID;
-    public static SettingsFragment settingsFragment;
+    public static File splashes;
 
     public static void Switch() {
         switch (place) {
@@ -80,64 +77,49 @@ public class Adventure extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adventure);
-        settingsFragment = new SettingsFragment();
         musicID = R.raw.scare;
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                Log.d("Switch Adventure", key);
-                if (key.equals("johnCena")) {
-                    boolean johnCena = sharedPreferences.getBoolean(key, false);
-                    if (johnCena) {
-                        musicID = R.raw.johncena;
-                    } else {
-                        musicID = R.raw.scare;
-                    }
-                }
-            }
-        };
-        preferences.registerOnSharedPreferenceChangeListener(prefListener);
         mediaPlayer = MediaPlayer.create(this, musicID);
         btnYes = (Button) findViewById(R.id.buttonYes);
         btnNo = (Button) findViewById(R.id.buttonNo);
         textField = (TextView) findViewById(R.id.textFieldText);
+        splashes = new File(getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()), Prompts.splashes);
+        if (!splashes.exists()) {
+            try {
+                InputStream is = getResources().openRawResource(R.raw.splash);
+                OutputStream os = new FileOutputStream(splashes);
+                BufferedReader br = new BufferedReader(new InputStreamReader(is));
+                String line = br.readLine();
+                while (line != null) {
+                    os.write(line.getBytes());
+                    os.write(Prompts.newline.getBytes());
+                    line = br.readLine();
+                }
+                is.close();
+                os.close();
+                br.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         splashText = (TextView) findViewById(R.id.textView3);
         place = Prompts.doorway;
         ArrayList splash = new <String>ArrayList();
         Random RNG = new Random();
-        InputStream is = this.getResources().openRawResource(R.raw.splash);
         try {
+            InputStream is = new FileInputStream(splashes);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String line = br.readLine();
             while (line != null) {
                 splash.add(line);
                 line = br.readLine();
             }
+            is.close();
+            br.close();
         } catch (IOException e) {
             Log.w("Switch Adventure", "Error reading splashes!");
         }
         splashText.setText(splash.get(RNG.nextInt(splash.size())).toString());
         Switch();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        //inflater.inflate(R.menu.settingsmenu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.settings:
-                Intent intent = new Intent(getBaseContext(), Settings.class);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     public void btnYesClicked(View v) {
