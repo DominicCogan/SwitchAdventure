@@ -64,4 +64,13 @@
         android:text="@string/credit3"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+    <TextView
+        android:id="@+id/buildEdition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
 </RelativeLayout>

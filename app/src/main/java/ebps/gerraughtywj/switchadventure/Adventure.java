@@ -29,7 +29,7 @@ import java.util.Random;
 public class Adventure extends Activity {
 
     public static Button btnYes, btnNo;
-    public static TextView textField, splashText;
+    public static TextView textField, splashText, buildEdition;
     public static String place;
     public static MediaPlayer mediaPlayer;
     public static int musicID;
@@ -88,6 +88,8 @@ public class Adventure extends Activity {
         btnYes = (Button) findViewById(R.id.buttonYes);
         btnNo = (Button) findViewById(R.id.buttonNo);
         textField = (TextView) findViewById(R.id.textFieldText);
+        buildEdition = (TextView) findViewById(R.id.buildEdition);
+        buildEdition.setText(BuildConfig.VERSION_NAME + " R#" + BuildConfig.VERSION_CODE);
         splashes = new File(getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()), Prompts.splashes);
         if (!splashes.exists()) {
             try {
