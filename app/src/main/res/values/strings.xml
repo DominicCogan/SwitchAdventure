@@ -6,4 +6,7 @@
     <string name="credit1">Made by William Gerraughty</string>
     <string name="credit2">...because he\'s awesome</string>
     <string name="credit3">This is totally not an ego boost I swear</string>
+    <string name="enableJohnCena">Enable John Cena</string>
+    <string name="hauntedHouse">Who\'s John Cena?</string>
+    <string name="johnCena">Suddenly, John Cena</string>
 </resources>

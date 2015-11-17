@@ -1,10 +1,16 @@
 package ebps.gerraughtywj.switchadventure;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -28,6 +34,8 @@ public class Adventure extends Activity {
     public static MediaPlayer mediaPlayer;
     public static int musicID;
     public static File splashes;
+    SharedPreferences.OnSharedPreferenceChangeListener listener;
+    SharedPreferences sharedPreferences;
 
     public static void Switch() {
         switch (place) {
@@ -77,8 +85,6 @@ public class Adventure extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adventure);
-        musicID = R.raw.scare;
-        mediaPlayer = MediaPlayer.create(this, musicID);
         btnYes = (Button) findViewById(R.id.buttonYes);
         btnNo = (Button) findViewById(R.id.buttonNo);
         textField = (TextView) findViewById(R.id.textFieldText);
@@ -119,7 +125,47 @@ public class Adventure extends Activity {
             Log.w("Switch Adventure", "Error reading splashes!");
         }
         splashText.setText(splash.get(RNG.nextInt(splash.size())).toString());
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if (sharedPreferences.getBoolean(Prompts.keyJohnCena, false)) {
+            musicID = R.raw.johncena;
+        } else {
+            musicID = R.raw.scare;
+        }
+        mediaPlayer = MediaPlayer.create(this, musicID);
+        listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                if (key.equals(Prompts.keyJohnCena)) {
+                    if (sharedPreferences.getBoolean(key, false)) {
+                        musicID = R.raw.johncena;
+                    } else {
+                        musicID = R.raw.scare;
+                    }
+                    mediaPlayer = MediaPlayer.create(getApplicationContext(), musicID);
+                }
+            }
+        };
+        sharedPreferences.registerOnSharedPreferenceChangeListener(listener);
         Switch();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settingsmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void btnYesClicked(View v) {
