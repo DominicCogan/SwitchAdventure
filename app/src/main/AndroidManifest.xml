@@ -13,7 +13,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Adventure"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:logo="@drawable/ic_adventure">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +23,8 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/action_settings" />
+            android:label="@string/action_settings"
+            android:logo="@drawable/ic_settings" />
     </application>
 
 </manifest>
