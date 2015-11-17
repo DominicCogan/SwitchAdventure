@@ -17,6 +17,8 @@ public class Prompts {
     //Splash text resources
     public static final String splashes = "splash.txt";
     public static final String newline = "\n";
+    //Insult resources
+    public static final String insults = "insults.txt";
     //Preference keys
     public static final String keyJohnCena = "playJohnCena";
     public static final String keyBeMean = "beMeanToDom";

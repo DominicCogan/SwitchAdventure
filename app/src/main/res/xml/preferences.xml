@@ -5,10 +5,10 @@
         android:key="playJohnCena"
         android:summary="@string/hauntedHouse"
         android:title="@string/enableJohnCena" />
-    <CheckBoxPreference
-        android:defaultValue="false"
+    <Preference
         android:key="beMeanToDom"
-        android:summary="@string/beMeanFalse"
+        android:summary="@string/beMean"
         android:title="@string/beMeanToDom" />
+
 
 </PreferenceScreen>

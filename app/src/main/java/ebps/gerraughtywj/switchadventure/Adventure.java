@@ -33,8 +33,8 @@ public class Adventure extends Activity {
     public static String place;
     public static MediaPlayer mediaPlayer;
     public static int musicID;
-    public static File splashes;
-    public static ArrayList splash;
+    public static File splashes, insults;
+    public static ArrayList splash, insult;
     public static Random RNG;
     SharedPreferences.OnSharedPreferenceChangeListener listener;
     SharedPreferences sharedPreferences;
@@ -93,6 +93,7 @@ public class Adventure extends Activity {
         buildEdition = (TextView) findViewById(R.id.buildEdition);
         buildEdition.setText(BuildConfig.VERSION_NAME + " R#" + BuildConfig.VERSION_CODE);
         splashes = new File(getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()), Prompts.splashes);
+        insults = new File(getExternalFilesDir(Environment.getDataDirectory().getAbsolutePath()), Prompts.insults);
         if (!splashes.exists()) {
             try {
                 InputStream is = getResources().openRawResource(R.raw.splash);
@@ -111,9 +112,28 @@ public class Adventure extends Activity {
                 e.printStackTrace();
             }
         }
+        if (!insults.exists()) {
+            try {
+                InputStream is = getResources().openRawResource(R.raw.insults);
+                OutputStream os = new FileOutputStream(insults);
+                BufferedReader br = new BufferedReader(new InputStreamReader(is));
+                String line = br.readLine();
+                while (line != null) {
+                    os.write(line.getBytes());
+                    os.write(Prompts.newline.getBytes());
+                    line = br.readLine();
+                }
+                is.close();
+                os.close();
+                br.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         splashText = (TextView) findViewById(R.id.textView3);
         place = Prompts.doorway;
         splash = new <String>ArrayList();
+        insult = new <String>ArrayList();
         RNG = new Random();
         try {
             InputStream is = new FileInputStream(splashes);
@@ -127,6 +147,19 @@ public class Adventure extends Activity {
             br.close();
         } catch (IOException e) {
             Log.w("Switch Adventure", "Error reading splashes!");
+        }
+        try {
+            InputStream is = new FileInputStream(insults);
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String line = br.readLine();
+            while (line != null) {
+                insult.add(line);
+                line = br.readLine();
+            }
+            is.close();
+            br.close();
+        } catch (IOException e) {
+            Log.w("Switch Adventure", "Error reading insults!");
         }
         splashText.setText(splash.get(RNG.nextInt(splash.size())).toString());
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
