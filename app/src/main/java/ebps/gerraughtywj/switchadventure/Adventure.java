@@ -34,6 +34,8 @@ public class Adventure extends Activity {
     public static MediaPlayer mediaPlayer;
     public static int musicID;
     public static File splashes;
+    public static ArrayList splash;
+    public static Random RNG;
     SharedPreferences.OnSharedPreferenceChangeListener listener;
     SharedPreferences sharedPreferences;
 
@@ -111,8 +113,8 @@ public class Adventure extends Activity {
         }
         splashText = (TextView) findViewById(R.id.textView3);
         place = Prompts.doorway;
-        ArrayList splash = new <String>ArrayList();
-        Random RNG = new Random();
+        splash = new <String>ArrayList();
+        RNG = new Random();
         try {
             InputStream is = new FileInputStream(splashes);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -171,6 +173,7 @@ public class Adventure extends Activity {
     }
 
     public void btnYesClicked(View v) {
+        splashText.setText(splash.get(RNG.nextInt(splash.size())).toString());
         if (place.equals(Prompts.fridge)) {
             textField.setText(Prompts.fridgeYes);
             place = Prompts.done;
@@ -200,6 +203,7 @@ public class Adventure extends Activity {
     }
 
     public void btnNoClicked(View v) {
+        splashText.setText(splash.get(RNG.nextInt(splash.size())).toString());
         if (place.equals(Prompts.fridge)) {
             textField.setText(Prompts.fridgeNo);
             place = Prompts.done;
