@@ -9,4 +9,7 @@
     <string name="enableJohnCena">Enable John Cena</string>
     <string name="hauntedHouse">Who\'s John Cena?</string>
     <string name="johnCena">Suddenly, John Cena</string>
+    <string name="beMeanToDom">Be Mean to Dominic</string>
+    <string name="beMeanFalse">The nicest guy on Earth</string>
+    <string name="beMeanTrue">You horrible person, you</string>
 </resources>

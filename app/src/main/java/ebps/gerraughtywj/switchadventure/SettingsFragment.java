@@ -19,6 +19,11 @@ public class SettingsFragment extends PreferenceFragment {
         } else {
             findPreference(Prompts.keyJohnCena).setSummary(R.string.hauntedHouse);
         }
+        if (sharedPreferences.getBoolean(Prompts.keyBeMean, false)) {
+            findPreference(Prompts.keyBeMean).setSummary(R.string.beMeanTrue);
+        } else {
+            findPreference(Prompts.keyBeMean).setSummary(R.string.beMeanFalse);
+        }
         listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -27,6 +32,13 @@ public class SettingsFragment extends PreferenceFragment {
                         findPreference(key).setSummary(R.string.johnCena);
                     } else {
                         findPreference(key).setSummary(R.string.hauntedHouse);
+                    }
+                }
+                if (key.equals(Prompts.keyBeMean)) {
+                    if (sharedPreferences.getBoolean(key, false)) {
+                        findPreference(Prompts.keyBeMean).setSummary(R.string.beMeanTrue);
+                    } else {
+                        findPreference(Prompts.keyBeMean).setSummary(R.string.beMeanFalse);
                     }
                 }
             }
